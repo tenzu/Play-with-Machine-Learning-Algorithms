@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn import datasets
 from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 
 # all data for training
@@ -20,9 +21,13 @@ def kNNTrain1():
     kNN_classifier1.fit(X_train1, y_train1)
     X_predict1 = x1.reshape(1, -1)
     y_predict1 = kNN_classifier1.predict(X_predict1)
-    plt.scatter(X_train1[y_train1==0,0], X_train1[y_train1==0,1], color='b')
-    plt.scatter(X_train1[y_train1==1,0], X_train1[y_train1==1,1], color='r')
-    plt.scatter(X_predict1[0,0], X_predict1[0,1], color='g', marker='*')
+    plt.scatter(X_train1[y_train1 == 0, 0],
+                X_train1[y_train1 == 0, 1],
+                color='b')
+    plt.scatter(X_train1[y_train1 == 1, 0],
+                X_train1[y_train1 == 1, 1],
+                color='r')
+    plt.scatter(X_predict1[0, 0], X_predict1[0, 1], color='g', marker='*')
     plt.show()
     return y_predict1[0]
 
@@ -35,17 +40,22 @@ def kNNTrain2():
     y2 = iris.target
     X_train2, X_test2, y_train2, y_test2 = train_test_split(X2,
                                                             y2,
-                                                            test_size=0.2,
+                                                            test_size=0.9,
                                                             random_state=666)
     x2 = np.array([8.093607318, 3.365731514, 1, 0.2])
-    kNN_classifier2 = KNeighborsClassifier(n_neighbors=6, n_jobs=-1)
+    kNN_classifier2 = KNeighborsClassifier(n_neighbors=3, n_jobs=-1)
     kNN_classifier2.fit(X_train2, y_train2)
     X_predict2 = x2.reshape(1, -1)
-    y_predict2 = kNN_classifier2.predict(X_predict2)
-    plt.scatter(X_train2[y_train2==0,0], X_train2[y_train2==0,1], color='b')
-    plt.scatter(X_train2[y_train2==1,0], X_train2[y_train2==1,1], color='r')
-    plt.scatter(X_predict2[0,0], X_predict2[0,1], color='g', marker='+')
-    plt.show()
+    y_predict2 = kNN_classifier2.predict(X_test2)
+    print("The score for prediction is:", accuracy_score(y_test2, y_predict2))
+    plt.scatter(X_train2[y_train2 == 0, 0],
+                X_train2[y_train2 == 0, 1],
+                color='b')
+    plt.scatter(X_train2[y_train2 == 1, 0],
+                X_train2[y_train2 == 1, 1],
+                color='r')
+    plt.scatter(X_predict2[0, 0], X_predict2[0, 1], color='g', marker='+')
+    #plt.show()
     return y_predict2[0]
 
 
